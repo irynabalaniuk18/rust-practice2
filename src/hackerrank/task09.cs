@@ -25,21 +25,18 @@ class Result
      */
     public static int sockMerchant(int n, List<int> ar)
     {
-        // Створюємо множину для відстеження одиночних шкарпеток
         HashSet<int> colors = new HashSet<int>();
         int pairs = 0;
 
         foreach (int sock in ar)
         {
-            // Якщо колір вже є у множині — ми знайшли пару
             if (colors.Contains(sock))
             {
                 pairs++;
-                colors.Remove(sock); // Видаляємо, щоб почати пошук нової пари цього кольору
+                colors.Remove(sock);
             }
             else
             {
-                // Якщо немає — додаємо шкарпетку в очікуванні пари
                 colors.Add(sock);
             }
         }
@@ -52,23 +49,14 @@ class Solution
 {
     public static void Main(string[] args)
     {
-        // Читання шляху для виводу (стандарт для HackerRank)
-        string outputPath = Environment.GetEnvironmentVariable("OUTPUT_PATH");
-        TextWriter textWriter = new StreamWriter(outputPath ?? Console.Out.ToString(), true);
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-        // Зчитуємо кількість шкарпеток
         int n = Convert.ToInt32(Console.ReadLine().Trim());
 
-        // Зчитуємо масив кольорів
-        List<int> ar = Console.ReadLine().TrimEnd().Split(' ')
-            .ToList()
-            .Select(arTemp => Convert.ToInt32(arTemp))
-            .ToList();
+        List<int> ar = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arTemp => Convert.ToInt32(arTemp)).ToList();
 
-        // Отримуємо результат з нашої функції
         int result = Result.sockMerchant(n, ar);
 
-        // Записуємо результат
         textWriter.WriteLine(result);
 
         textWriter.Flush();
